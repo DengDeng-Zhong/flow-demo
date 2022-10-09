@@ -1,0 +1,89 @@
+app:
+  name: flow
+spring:
+  profiles:
+    active: dev
+  aop:
+    proxy-target-class: true
+    auto: true
+  application:
+    name: flow-manager
+  security:
+    filter:
+      dispatcher-types: REQUEST,FORWARD,ASYNC
+  liquibase:
+    enabled: false
+  jmx:
+    default-domain: ${spring.application.name}
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  mvc:
+    favicon:
+      enabled: false
+  http:
+    encoding:
+      force: true
+      charset: UTF-8
+      enabled: true
+  servlet:
+    multipart:
+      max-file-size: 500MB
+      max-request-size: 500MB
+server:
+  tomcat:
+    uri-encoding: UTF-8
+  servlet:
+    context-path:
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain
+    min-response-size: 4096
+  port: 8989
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+    jmx:
+      unique-names: true
+  endpoint:
+    health:
+      show-details: when_authorized
+      roles: access-admin
+flowable:
+  common:
+    app:
+      role-prefix:
+      idm-url: ${bath.path}/idm
+  idm:
+    app:
+      admin:
+        user-id: admin
+        password: test
+        first-name: admin
+        last-name: admin
+  modeler:
+    app:
+      rest-enabled: true
+  rest:
+    app:
+      authentication-mode: verify-privilege
+  database-schema-update: false
+  process:
+    definition-cache-limit: -1
+  activityFontName: 宋体
+  labelFontName: 宋体
+  annotationFontName: 宋体
+  xml:
+    encoding: UTF-8
+mybatis:
+  configuration-properties:
+    blobType: BLOB
+    boolValue: TRUE
+    prefix:
+  mapper-locations: classpath:dragon-mybatis-mappings/*/xml/*.xml,classpath:modeler-mybatis-mappings/*.xml
+
+  config-location: classpath:mybatis-config.xml
+
